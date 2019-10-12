@@ -6,6 +6,7 @@ import { AgmCoreModule } from '@agm/core';
 import { AppComponent } from './app.component';
 import { WalkRouteService } from './services/walk-route-service';
 import { components } from './components';
+import { CommonModule } from '@angular/common';
 
 
 @NgModule({
@@ -15,6 +16,7 @@ import { components } from './components';
   ],
   imports: [
     BrowserModule,
+    CommonModule,
     HttpClientModule,
     AgmCoreModule.forRoot({
       apiKey: ''

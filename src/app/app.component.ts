@@ -13,6 +13,7 @@ export class AppComponent implements OnInit {
   title = 'walkies-app';
 
   ngOnInit(){
-    this.routesService.getRoutes().subscribe(data => console.log(data));
+    // TODO unsubscribe
+    this.routesService.getRoutes().subscribe(data => { this.walkRoutes = data; console.log(data)} );
   }
 }
