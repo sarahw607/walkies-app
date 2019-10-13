@@ -24,13 +24,19 @@ export class RouteDetailComponent implements OnInit {
     })
   }
 
-  calculateTreats = (routeDetails: WalkRoute) => {
-    console.log(routeDetails);
-    this.noOfTreats = routeDetails.locations.reduce((acc, currentValue, prevValue) => {
-      console.log(acc);
-      console.log(currentValue);
-      console.log(prevValue);
-      return acc + currentValue.altitude;
+  calculateTreats = ({ locations }: WalkRoute) => {
+    console.log(locations);
+   this.noOfTreats = locations.reduce((total, {altitude}, index, values) => {
+     if(index === 0){
+      return altitude;
+     }else{
+       console.log('index' + index);
+      let prevValue = values[index-1];
+       console.log(prevValue)
+      if(altitude > prevValue.altitude) { return altitude - prevValue.altitude }
+      else if(altitude < prevValue.altitude) { return -altitude}
+      else return 0
+     }
     }, 0);
   }
 }
