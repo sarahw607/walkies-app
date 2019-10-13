@@ -11,4 +11,6 @@ export class WalkRouteService {
     
 getRoutes = () => this.http.get<WalkRoute[]>(environment.apiUrl);
 
+getRoute = (id: number) => this.http.get<WalkRoute>(`${environment.apiUrl}/${id}`);
+
 }

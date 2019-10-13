@@ -1,4 +1,4 @@
-export interface WalkRouteDetail {
+export interface RouteLocation {
     latitude: number;
     longitude: number;
     altitude: number;
@@ -7,4 +7,5 @@ export interface WalkRouteDetail {
 export interface WalkRoute {
     id: number;
     name: string;
+    locations?: RouteLocation[];
 }
