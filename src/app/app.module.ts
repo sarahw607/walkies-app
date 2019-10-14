@@ -29,7 +29,7 @@ import { RouteDetailComponent } from './components/route-detail/route-detail.com
     RouterModule.forRoot(appRoutes),
     HttpClientModule,
     AgmCoreModule.forRoot({
-      apiKey: ''
+      apiKey: 'AIzaSyBp7-48qKl3mat1o4U5zDMP_oLwY2alq8M'
     })
   ],
   providers: [WalkRouteService],

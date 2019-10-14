@@ -9,34 +9,36 @@ import { WalkRouteService } from 'src/app/services/walk-route-service';
   styleUrls: ['./route-detail.component.css']
 })
 export class RouteDetailComponent implements OnInit {
-  noOfTreats: number;
-  locations: RouteLocation[];
+  noOfTreats: number = 0;
+  walkRoute: WalkRoute;
 
   constructor(private route: ActivatedRoute, private routeService: WalkRouteService) { }
 
   ngOnInit() {
-    this.route.params.subscribe(params =>{
+    this.route.params.subscribe(params => {
       const id = params['id'];
       this.routeService.getRoute(id).subscribe(routeDetails => {
         this.calculateTreats(routeDetails);
-        this.locations = routeDetails.locations;
+        this.walkRoute = routeDetails;
       })
     })
+    
   }
 
   calculateTreats = ({ locations }: WalkRoute) => {
-    console.log(locations);
-   this.noOfTreats = locations.reduce((total, {altitude}, index, values) => {
-     if(index === 0){
-      return altitude;
-     }else{
-       console.log('index' + index);
-      let prevValue = values[index-1];
-       console.log(prevValue)
-      if(altitude > prevValue.altitude) { return altitude - prevValue.altitude }
-      else if(altitude < prevValue.altitude) { return -altitude}
-      else return 0
-     }
-    }, 0);
+    locations.map(location => location.altitude).forEach((altitude, index) => {
+        if (index > 0) {          
+          const prevValue = locations[index - 1].altitude;
+          const diff = altitude - prevValue;           
+          if (altitude < prevValue) {
+            if(diff < 0) this.noOfTreats +=  diff
+            else this.noOfTreats -= diff
+            
+          } else if (altitude > prevValue) {
+            if(diff < 0) this.noOfTreats -= diff
+            else this.noOfTreats += diff
+          }
+        }
+      });
   }
 }

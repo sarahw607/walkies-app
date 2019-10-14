@@ -1,2 +1,5 @@
-
-<div *ngFor="let route of walkRoutes" [routerLink]="['/route-details', route.id]">{{route.name}}</div>
+<h1>DOG SNACK CALCULATOR</h1    >
+<ul class="list-group">
+    <li class="list-group-item" *ngFor="let route of walkRoutes" [routerLink]="['/route-details', route.id]">
+        {{route.name}}</li>
+</ul>

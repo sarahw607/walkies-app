@@ -13,8 +13,8 @@ export class RouteListComponent implements OnInit {
   walkRoutes: WalkRoute[]
 
   ngOnInit() {
-        // TODO unsubscribe
-        this.routesService.getRoutes().subscribe(data => { this.walkRoutes = data; console.log(data)} );
+    // TODO unsubscribe
+    this.routesService.getRoutes().subscribe(data => { this.walkRoutes = data; console.log(data)} );
   }
 
 }
