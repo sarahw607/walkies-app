@@ -1,2 +1,3 @@
-<app-route-map [walkRoute]="walkRoute"></app-route-map>
-<p>Newton will need {{noOfTreats}} to complete this walk.</p>
+<h3>{{ walkRoute.name }}</h3>
+<app-route-map [locations]="walkRoute.locations"></app-route-map>
+<p>Newton will need {{ noOfTreats }} snacks to complete this walk.</p>
