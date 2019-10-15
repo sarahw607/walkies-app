@@ -3,17 +3,9 @@
   *ngIf="locations"
   [origin]="origin"
   [destination]="destination"
-  [locations]="routeLocations"
+  [midLocations]="wayPoints"
   [zoom]="18"
   [latitude]="origin.latitude"
   [longitude]="origin.longitude"
 >
-  <agm-marker
-    [latitude]="origin.latitude"
-    [longitude]="origin.longitude"
-  ></agm-marker>
 </agm-map>
-
-<!-- *ngFor="let location of locations"
-[latitude]="location.latitude"
-[longitude]="location.longitude" -->

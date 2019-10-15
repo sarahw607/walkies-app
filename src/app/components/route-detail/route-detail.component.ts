@@ -1,33 +1,35 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { WalkRoute, RouteLocation } from 'src/app/models/walk-route.model';
 import { ActivatedRoute } from '@angular/router';
 import { WalkRouteService } from 'src/app/services/walk-route-service';
+import { takeWhile } from 'rxjs/operators';
 
 @Component({
   selector: 'app-route-detail',
-  templateUrl: './route-detail.component.html',
-  styleUrls: ['./route-detail.component.css']
+  templateUrl: './route-detail.component.html'
 })
-export class RouteDetailComponent implements OnInit {
+export class RouteDetailComponent implements OnInit, OnDestroy {
+
   noOfTreats = 0;
   walkRoute: WalkRoute;
+  private isAlive = true;
 
   constructor(
     private route: ActivatedRoute,
     private routeService: WalkRouteService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
       const id = params['id'];
-      this.routeService.getRoute(id).subscribe(routeDetails => {
+      this.routeService.getRoute(id).pipe(takeWhile(() => this.isAlive)).subscribe(routeDetails => {
         this.calculateTreats(routeDetails);
         this.walkRoute = routeDetails;
       });
     });
   }
 
-  calculateTreats = ({ locations }: WalkRoute) => {
+  calculateTreats({ locations }: WalkRoute) {
     locations
       .map(location => location.altitude)
       .forEach((altitude, index) => {
@@ -50,4 +52,8 @@ export class RouteDetailComponent implements OnInit {
         }
       });
   };
+
+  ngOnDestroy() {
+    this.isAlive = false;
+  }
 }

@@ -10,7 +10,7 @@ export class RouteMapComponent implements OnInit {
   @Input() locations: RouteLocation[];
   origin: RouteLocation;
   destination: RouteLocation;
-  routeLocations: RouteLocation[];
+  wayPoints: RouteLocation[];
 
   constructor() {}
 
@@ -18,11 +18,6 @@ export class RouteMapComponent implements OnInit {
     const lastIndex = this.locations.length - 1;
     this.origin = this.locations[0];
     this.destination = this.locations[lastIndex];
-    this.routeLocations = this.locations.filter(
-      (location, index) => index !== 0 && index !== lastIndex
-    );
-    console.log(this.origin);
-    console.log(this.destination);
-    console.log(this.routeLocations);
+    this.wayPoints = this.locations.slice(1, lastIndex);
   }
 }
