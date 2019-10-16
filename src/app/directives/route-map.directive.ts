@@ -12,19 +12,21 @@ export class RouteMapDirective implements AfterViewInit {
 
   private directionsRenderer: any;
   private waypoints;
-  constructor(private mapsService: GoogleMapsAPIWrapper, private mapsApiLoader: MapsAPILoader) { }
+  constructor(
+    private mapsService: GoogleMapsAPIWrapper,
+    private mapsApiLoader: MapsAPILoader
+  ) {}
 
   ngAfterViewInit() {
-    this.drawDirectionsRoute();
+    this.drawRoute();
     this.waypoints = this.midLocations.map(({ latitude, longitude }) => ({
       location: { lat: latitude, lng: longitude },
       stopover: true
     }));
   }
 
-  drawDirectionsRoute() {
+  drawRoute() {
     this.mapsApiLoader.load().then(() => {
-
       this.directionsRenderer = new google.maps.DirectionsRenderer();
 
       this.mapsService.getNativeMap().then(map => {
@@ -52,4 +54,3 @@ export class RouteMapDirective implements AfterViewInit {
     });
   }
 }
-

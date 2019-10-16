@@ -1,3 +1,6 @@
 <h3>{{ walkRoute?.name }}</h3>
-<app-route-map *ngIf="walkRoute" [locations]="walkRoute.locations"></app-route-map>
-<h5>Newton will need {{ noOfTreats }} snacks to complete this walk.</h5>
+<app-route-map
+  *ngIf="walkRoute"
+  [locations]="walkRoute.locations"
+></app-route-map>
+<p>Newton will need {{ noOfTreats }} snacks to complete this walk.</p>

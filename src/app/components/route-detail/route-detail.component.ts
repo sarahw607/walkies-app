@@ -6,10 +6,10 @@ import { takeWhile } from 'rxjs/operators';
 
 @Component({
   selector: 'app-route-detail',
-  templateUrl: './route-detail.component.html'
+  templateUrl: './route-detail.component.html',
+  styleUrls: ['./route-detail.component.css']
 })
 export class RouteDetailComponent implements OnInit, OnDestroy {
-
   noOfTreats = 0;
   walkRoute: WalkRoute;
   private isAlive = true;
@@ -17,15 +17,18 @@ export class RouteDetailComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private routeService: WalkRouteService
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.route.params.subscribe(params => {
       const id = params['id'];
-      this.routeService.getRoute(id).pipe(takeWhile(() => this.isAlive)).subscribe(routeDetails => {
-        this.calculateTreats(routeDetails);
-        this.walkRoute = routeDetails;
-      });
+      this.routeService
+        .getRoute(id)
+        .pipe(takeWhile(() => this.isAlive))
+        .subscribe(routeDetails => {
+          this.calculateTreats(routeDetails);
+          this.walkRoute = routeDetails;
+        });
     });
   }
 
@@ -51,7 +54,7 @@ export class RouteDetailComponent implements OnInit, OnDestroy {
           }
         }
       });
-  };
+  }
 
   ngOnDestroy() {
     this.isAlive = false;
